@@ -1,0 +1,34 @@
+name: Build and Publish Docker CI
+
+on:
+  push:
+    branches: [ "ci", "master" ]
+  pull_request:
+    branches: [ "ci", "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+    - run: npm install
+
+    - name: login to docker hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{secrets.docker_username}}
+        password: ${{secrets.docker_password}}
+
+    - name: build docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{secrets.docker_username}}/generoapi:latest
