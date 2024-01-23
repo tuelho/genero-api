@@ -9,16 +9,13 @@ services:
       - PORT=3333
       - NODE_ENV=production
       - APP_KEY=ipQV9xChC6VsDJ6gnImelH_zZUClG3Gd
-      - DRIVE_DISK=s3
+      - DRIVE_DISK=local
       - DB_CONNECTION=pg
       - PG_HOST=localhost
       - PG_PORT=5432
       - PG_USER=postgres
       - PG_PASSWORD=postgres
       - PG_DB_NAME=ingresso_dev
-      - MONITORING_HOST=127.0.0.1
-      - MONITORING_USERNAME=admin
-      - MONITORING_PASSWORD=admin
     ports:
       - 3333:3333
     volumes:
